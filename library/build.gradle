@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+def libVersion = "0.1.0"
+def groupId = "net.petitviolet.library"
+def libName = "android-utils"
+
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+dependencies {
+    compile 'com.squareup.okhttp:okhttp:2.5.+'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+def deployTo = new File(rootDir, "repository")
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: "file://${deployTo.absolutePath}" // デプロイ先
+            pom.version = libVersion
+            pom.groupId = groupId
+            pom.artifactId = libName
+        }
+    }
+}
