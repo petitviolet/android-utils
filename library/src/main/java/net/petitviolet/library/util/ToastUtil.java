@@ -2,7 +2,6 @@ package net.petitviolet.library.util;
 
 import android.app.Application;
 import android.content.Context;
-import android.text.TextUtils;
 import android.widget.Toast;
 
 public class ToastUtil {
@@ -29,8 +28,6 @@ public class ToastUtil {
         if (sContext == null) {
             throw new NullPointerException("You should call setApplication at initializing application");
         }
-        if (!TextUtils.isEmpty(message)) {
-            Toast.makeText(sContext, message, duration).show();
-        }
+        Toast.makeText(sContext, "" + message, duration).show();
     }
 }
