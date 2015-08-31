@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
-def libVersion = "0.1.1"
+def libVersion = "0.1.2"
 def groupId = "net.petitviolet.library"
 def libName = "android-utils"
 

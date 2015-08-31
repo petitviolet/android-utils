@@ -14,6 +14,8 @@ This repo includes these following utilitiy classes.
     - not `set` but `add` AbsListView.OnScrollListener
 - MainThreadCallback
     - for OkHttp Callback executed on MainThread
+- LruCache
+    - Memory and Disk LruCache implementation
 
 # How to Use
 
@@ -23,7 +25,7 @@ You can use this library by just add following settings at your application buil
 repositories {
     maven { url "https://petitviolet.github.io/maven/repository" }
 }
-compile 'net.petitviolet.library:android-utils:0.1.1'
+compile 'net.petitviolet.library:android-utils:0.1.2'
 ```
 
 # License
