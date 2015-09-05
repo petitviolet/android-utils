@@ -27,16 +27,7 @@ You can use this library by just add following settings at your application buil
 repositories {
     maven { url "https://jitpack.io" }
 }
-compile 'com.github.petitviolet:android-utils:v0.1.2'
-```
-
-or...
-
-```groovy
-repositories {
-    maven { url "https://petitviolet.github.io/maven/repository" }
-}
-compile 'net.petitviolet.library:android-utils:0.1.2'
+compile 'com.github.petitviolet:android-utils:0.1.3'
 ```
 
 # License
