@@ -1,5 +1,7 @@
 # Android Util Library
 
+![jitpack](https://img.shields.io/github/tag/petitviolet/android-utils.svg?label=JitPack)
+
 This repo includes these following utilitiy classes.
 
 - Logger
@@ -20,6 +22,15 @@ This repo includes these following utilitiy classes.
 # How to Use
 
 You can use this library by just add following settings at your application build.gradle file.
+
+```groovy
+repositories {
+    maven { url "https://jitpack.io" }
+}
+compile 'com.github.petitviolet:android-utils:v0.1.2'
+```
+
+or...
 
 ```groovy
 repositories {
