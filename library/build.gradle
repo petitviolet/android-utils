@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
+apply plugin: 'android-maven'
 
-def libVersion = "0.1.2"
+def libVersion = "0.2.0"
 def groupId = "net.petitviolet.library"
 def libName = "android-utils"
 
@@ -39,7 +40,6 @@ def deployTo = new File(rootDir, "../maven/repository")
 uploadArchives {
     repositories {
         mavenDeployer {
-            // repository url: "file://${deployTo.absolutePath}" // デプロイ先
             repository url: "file://${deployTo.absolutePath}" // デプロイ先
             pom.version = libVersion
             pom.groupId = groupId
