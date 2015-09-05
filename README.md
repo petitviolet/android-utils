@@ -27,7 +27,7 @@ You can use this library by just add following settings at your application buil
 repositories {
     maven { url "https://jitpack.io" }
 }
-compile 'com.github.petitviolet:android-utils:0.1.3'
+compile 'com.github.petitviolet:android-utils:0.2.0'
 ```
 
 # License
