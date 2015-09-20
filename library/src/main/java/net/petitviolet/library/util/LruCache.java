@@ -2,7 +2,6 @@ package net.petitviolet.library.util;
 
 import android.content.Context;
 import android.os.Environment;
-import android.support.v4.util.LruCache;
 import android.util.Log;
 
 import java.io.BufferedOutputStream;
@@ -24,16 +23,16 @@ import java.util.Map.Entry;
 /**
  * リクエストした結果をディスク/メモリにキャッシュするシングルトン
  */
-class RequestCache {
-    private static final String TAG = RequestCache.class.getSimpleName();
+public class LruCache {
+    private static final String TAG = LruCache.class.getSimpleName();
     private static final String DIR_NAME = "petitviolet";
     private static final int MEM_CACHE_SIZE = 1024 * 1024 * 5;
-    private final LruCache<String, Object> mLruCache;
+    private final android.support.v4.util.LruCache mLruCache;
     private static DiskLruCache mDiskLruCache;
-    private static RequestCache instance = new RequestCache();
+    private static LruCache instance = new LruCache();
 
-    private RequestCache() {
-        this.mLruCache = new LruCache<String, Object>(MEM_CACHE_SIZE);
+    private LruCache() {
+        this.mLruCache = new android.support.v4.util.LruCache(MEM_CACHE_SIZE);
     }
 
     private void openDiskCache(Context context) {
@@ -42,7 +41,7 @@ class RequestCache {
         }
     }
 
-    public static RequestCache getInstance(Context context) {
+    public static LruCache getInstance(Context context) {
         if (context != null) {
             instance.openDiskCache(context);
         }
