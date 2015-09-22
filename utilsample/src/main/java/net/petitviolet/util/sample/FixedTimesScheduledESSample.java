@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import net.petitviolet.library.util.FixedTimesScheduledExecutorService;
-import net.petitviolet.library.util.Logger;
 import net.petitviolet.library.util.ToastUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -22,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class MainActivity extends AppCompatActivity {
+public class FixedTimesScheduledESSample extends AppCompatActivity {
     @Bind(R.id.hello_world)
     TextView mHelloWorld;
     @Bind(R.id.hello_world2)
@@ -41,41 +40,43 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.runner_executor)
     void animateExecutor() {
-        if (mHelloWorld2.getAlpha() != 0) {
-            return;
-        }
         final Runnable biggerTask = () -> {
-            float alpha = mHelloWorld2.getAlpha() + 0.1f;
-            Logger.i("bigger size -> " + alpha);
-            updateAlpha(mHelloWorld2, alpha);
+//            float alpha = mHelloWorld2.getAlpha() + 0.1f;
+//            Logger.i("bigger size -> " + alpha);
+//            updateAlpha(mHelloWorld2, alpha);
+            float scaleX = mHelloWorld2.getScaleX() + 0.05f;
+            float scaleY = mHelloWorld2.getScaleY() + 0.05f;
+            updateScale(mHelloWorld2, scaleX, scaleY);
         };
         final Runnable smallerTask = () -> {
-            float alpha = mHelloWorld2.getAlpha() - 0.1f;
-            Logger.i("smaller size -> " + alpha);
-            updateAlpha(mHelloWorld2, alpha);
+//            float alpha = mHelloWorld2.getAlpha() - 0.1f;
+//            Logger.i("smaller size -> " + alpha);
+//            updateAlpha(mHelloWorld2, alpha);
+            float scaleX = mHelloWorld2.getScaleX() - 0.05f;
+            float scaleY = mHelloWorld2.getScaleY() - 0.05f;
+            updateScale(mHelloWorld2, scaleX, scaleY);
         };
-        updateAlpha(mHelloWorld2, 0f);
+//        updateAlpha(mHelloWorld2, 0f);
+        updateScale(mHelloWorld2, 1f, 1f);
         mService.scheduleAtFixedRate(biggerTask, 20, 0, 50, TimeUnit.MILLISECONDS, () -> {
             showToast("reverse");
         });
         mService.scheduleAtFixedRate(smallerTask, 20, 2000, 50, TimeUnit.MILLISECONDS, () -> {
             showToast("completed");
-            updateAlpha(mHelloWorld2, 0f);
+//            updateAlpha(mHelloWorld2, 0f);
+            updateScale(mHelloWorld2, 1f, 1f);
         });
     }
 
     @OnClick(R.id.runner_animator)
     void animateAnimator() {
-        if (mHelloWorld.getAlpha() != 0) {
-            return;
-        }
-        PropertyValuesHolder biggerX = PropertyValuesHolder.ofFloat("scaleX", 0f, 1f);
-        PropertyValuesHolder biggerY = PropertyValuesHolder.ofFloat("scaleY", 0f, 1f);
+        PropertyValuesHolder biggerX = PropertyValuesHolder.ofFloat("scaleX", 1f, 2f);
+        PropertyValuesHolder biggerY = PropertyValuesHolder.ofFloat("scaleY", 1f, 2f);
         ObjectAnimator biggerAnim = ObjectAnimator.ofPropertyValuesHolder(mHelloWorld, biggerX, biggerY);
         biggerAnim.setDuration(1000);
 
-        PropertyValuesHolder smallerX = PropertyValuesHolder.ofFloat("scaleX", 10f, 1f);
-        PropertyValuesHolder smallerY = PropertyValuesHolder.ofFloat("scaleY", 10f, 1f);
+        PropertyValuesHolder smallerX = PropertyValuesHolder.ofFloat("scaleX", 2f, 1f);
+        PropertyValuesHolder smallerY = PropertyValuesHolder.ofFloat("scaleY", 2f, 1f);
         ObjectAnimator smallerAnim = ObjectAnimator.ofPropertyValuesHolder(mHelloWorld, smallerX, smallerY);
         smallerAnim.setDuration(1000);
         smallerAnim.setStartDelay(1000);
@@ -131,6 +132,13 @@ public class MainActivity extends AppCompatActivity {
     private void showToast(final String msg) {
         mMainHandler.post(() -> {
             ToastUtil.show(msg);
+        });
+    }
+
+    private void updateScale(final View view, final float scaleX, final float scaleY) {
+        mMainHandler.post(() -> {
+            view.setScaleX(scaleX);
+            view.setScaleY(scaleY);
         });
     }
 

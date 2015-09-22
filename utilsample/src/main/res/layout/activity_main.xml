@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/hello_world2"
         android:layout_centerInParent="true"
-        android:alpha="0"
         android:text="@string/hello_world"
         android:textSize="40sp"/>
 
@@ -23,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:alpha="0"
         android:text="@string/hello_world"
         android:textSize="40sp"/>
 
