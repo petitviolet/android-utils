@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">UtilSample</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="button_executor">Run(Executor)</string>
+    <string name="button_animator">Run(Animator)</string>
+    <string name="action_settings">Settings</string>
+</resources>
