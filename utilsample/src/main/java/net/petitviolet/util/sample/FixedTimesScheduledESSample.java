@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import net.petitviolet.library.util.FixedTimesScheduledExecutorService;
+import net.petitviolet.library.util.Logger;
 import net.petitviolet.library.util.ToastUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -41,20 +42,18 @@ public class FixedTimesScheduledESSample extends AppCompatActivity {
     @OnClick(R.id.runner_executor)
     void animateExecutor() {
         final Runnable biggerTask = () -> {
-//            float alpha = mHelloWorld2.getAlpha() + 0.1f;
-//            Logger.i("bigger size -> " + alpha);
-//            updateAlpha(mHelloWorld2, alpha);
             float scaleX = mHelloWorld2.getScaleX() + 0.05f;
             float scaleY = mHelloWorld2.getScaleY() + 0.05f;
             updateScale(mHelloWorld2, scaleX, scaleY);
+            String text = "x" + mHelloWorld2.getText().toString() + "x";
+            updateText(mHelloWorld2, text);
         };
         final Runnable smallerTask = () -> {
-//            float alpha = mHelloWorld2.getAlpha() - 0.1f;
-//            Logger.i("smaller size -> " + alpha);
-//            updateAlpha(mHelloWorld2, alpha);
             float scaleX = mHelloWorld2.getScaleX() - 0.05f;
             float scaleY = mHelloWorld2.getScaleY() - 0.05f;
             updateScale(mHelloWorld2, scaleX, scaleY);
+            String text = mHelloWorld2.getText().toString();
+            updateText(mHelloWorld2, text.substring(1, text.length() - 1));
         };
 //        updateAlpha(mHelloWorld2, 0f);
         updateScale(mHelloWorld2, 1f, 1f);
@@ -72,6 +71,12 @@ public class FixedTimesScheduledESSample extends AppCompatActivity {
     void animateAnimator() {
         PropertyValuesHolder biggerX = PropertyValuesHolder.ofFloat("scaleX", 1f, 2f);
         PropertyValuesHolder biggerY = PropertyValuesHolder.ofFloat("scaleY", 1f, 2f);
+        biggerY = PropertyValuesHolder.ofObject("setText", (fraction, startValue, endValue) -> {
+            Logger.d("fraction: " + fraction);
+            Logger.d("start: " + startValue);
+            Logger.d("end: " + endValue);
+            return "x" + endValue + "x";
+        }, "hoge");
         ObjectAnimator biggerAnim = ObjectAnimator.ofPropertyValuesHolder(mHelloWorld, biggerX, biggerY);
         biggerAnim.setDuration(1000);
 
@@ -139,6 +144,12 @@ public class FixedTimesScheduledESSample extends AppCompatActivity {
         mMainHandler.post(() -> {
             view.setScaleX(scaleX);
             view.setScaleY(scaleY);
+        });
+    }
+
+    private void updateText(final TextView view, final String newText) {
+        mMainHandler.post(() -> {
+            view.setText(newText);
         });
     }
 
