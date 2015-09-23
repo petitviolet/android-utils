@@ -26,7 +26,7 @@ public class ToastUtil {
 
     public static void show(String message, int duration) {
         if (sContext == null) {
-            throw new NullPointerException("You should call setApplication at initializing application");
+            throw new NullPointerException("You should call ToastUtil#setApplication at initializing application");
         }
         Toast.makeText(sContext, "" + message, duration).show();
     }
